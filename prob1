@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Set the network base
+network="192.168.1"
+
+# Set timeout and wait time
+timeout=1
+
+# Loop through 1 to 254
+for host in {1..254}; do
+    ip="$network.$host"
+    ping -c 1 -W $timeout $ip > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+        echo "[+] Host $ip is UP"
+    else
+        echo "[-] Host $ip is DOWN"
+    fi
+done
